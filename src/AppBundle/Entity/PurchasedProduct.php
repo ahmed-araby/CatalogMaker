@@ -32,8 +32,14 @@ class PurchasedProduct
 	private $purchasePrice;
 
 	/**
+	 * @var string
+	 * @ORM\Column(type="string")
+	 */
+	private $status;
+
+	/**
 	 * @var Product
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product")
+	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="purchasedProducts")
 	 */
 	private $product;
     /**
@@ -108,5 +114,41 @@ class PurchasedProduct
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return PurchasedProduct
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Product $product
+     * @return PurchasedProduct
+     */
+    public function setProduct(\AppBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
     }
 }

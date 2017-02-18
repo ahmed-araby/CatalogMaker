@@ -34,7 +34,7 @@ class Category
 	private $name;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product")
+	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product",inversedBy="categories")
 	 * @var Product[]|ArrayCollection
 	 */
 	private $products;
@@ -111,5 +111,13 @@ class Category
     public function getProducts()
     {
         return $this->products;
+    }
+
+	/**
+	 * @return string
+	 */
+    function __toString()
+    {
+	    return $this->getName();
     }
 }

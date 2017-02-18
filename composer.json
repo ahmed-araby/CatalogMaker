@@ -29,7 +29,11 @@
         "predis/predis": "^1.1",
         "snc/redis-bundle": "^2.0",
         "hwi/oauth-bundle": "^0.5.3",
-        "vich/uploader-bundle": "^1.4"
+        "vich/uploader-bundle": "^1.4",
+        "sonata-project/admin-bundle": "^3.13",
+        "sonata-project/intl-bundle": "^2.3",
+        "jms/di-extra-bundle": "^1.8",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

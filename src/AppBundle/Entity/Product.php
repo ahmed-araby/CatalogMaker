@@ -64,7 +64,7 @@ class Product
 	private $isPublished;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Category", inversedBy="products")
+	 * @ORM\ManyToMany(targetEntity="Category", mappedBy="products")
 	 * @var Category[]|ArrayCollection
 	 */
 	private $categories;
@@ -74,12 +74,6 @@ class Product
 	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\PurchasedProduct",mappedBy="product")
 	 */
 	private $purchasedProducts;
-
-	/**
-	 * @var string
-	 * @ORM\Column(type="string")
-	 */
-	private $status;
 
 	/**
 	 * @var string
