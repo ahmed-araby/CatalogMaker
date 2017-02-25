@@ -9,6 +9,8 @@
 namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * Class Category
@@ -16,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="category")
+ * @Gedmo\Tree(type="nested")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
 {
@@ -39,7 +43,45 @@ class Category
 	 */
 	private $products;
 
-    /**
+	/**
+	 * @Gedmo\TreeLeft
+	 * @ORM\Column(type="integer")
+	 */
+	private $lft;
+
+	/**
+	 * @Gedmo\TreeLevel
+	 * @ORM\Column(type="integer")
+	 */
+	private $lvl;
+
+	/**
+	 * @Gedmo\TreeRight
+	 * @ORM\Column(type="integer")
+	 */
+	private $rgt;
+
+	/**
+	 * @Gedmo\TreeRoot
+	 * @ORM\ManyToOne(targetEntity="Category")
+	 * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+	 */
+	private $root;
+
+	/**
+	 * @Gedmo\TreeParent
+	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+	 * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+	 */
+	private $parent;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+	 * @ORM\OrderBy({"lft" = "ASC"})
+	 */
+	private $children;
+
+	/**
      * Constructor
      */
     public function __construct()
@@ -112,6 +154,31 @@ class Category
     {
         return $this->products;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getRoot()
+	{
+		return $this->root;
+	}
+
+	/**
+	 * @param Category|null $parent
+	 */
+	public function setParent(Category $parent = null)
+	{
+		$this->parent = $parent;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getParent()
+	{
+		return $this->parent;
+	}
+
 
 	/**
 	 * @return string
